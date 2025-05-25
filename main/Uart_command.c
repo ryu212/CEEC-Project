@@ -72,7 +72,7 @@
         uart_flush(UART_NUM_2);
         uart_write_bytes(UART_NUM_2, (const char*)&byte_data, 1);
         uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
-        uart_flush(UART_NUM_2);
+        //uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, pdMS_TO_TICKS(3000));
         if (*ack == 0x79)
         {
@@ -93,7 +93,7 @@
         uart_flush(UART_NUM_2);
         uart_write_bytes(UART_NUM_2, cmd_combine, 2);
         uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
-        uart_flush(UART_NUM_2);
+        //uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
         if(ack[0] == ACK)
         {
@@ -117,7 +117,7 @@
         uart_flush(UART_NUM_2);
         uart_write_bytes(UART_NUM_2, cmd_combine, 2);
         uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
-        uart_flush(UART_NUM_2);
+        //uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
         if(ack[0] == ACK)
         {
@@ -142,7 +142,7 @@
         uart_flush(UART_NUM_2);
         uart_write_bytes(UART_NUM_2, cmd_combine, 2);
         uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
-        uart_flush(UART_NUM_2);
+        //uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
         if(ack[0] == ACK)
         {
@@ -158,7 +158,7 @@
             printf("Command not send\n");
             return 1;
         }
-        uart_flush(UART_NUM_2);
+        //uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
         if(ack[0] == ACK)
         {
@@ -196,7 +196,7 @@
             uart_flush(UART_NUM_2);
             uart_write_bytes(UART_NUM_2, cmd_combine, 2);
             uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
-            uart_flush(UART_NUM_2);
+            //uart_flush(UART_NUM_2);
             uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
             if(ack[0] == ACK)
             {
@@ -216,7 +216,7 @@
             uart_flush(UART_NUM_2);
             uart_write_bytes(UART_NUM_2, payload, 5);
             uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
-            uart_flush(UART_NUM_2);
+            //uart_flush(UART_NUM_2);
             uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
             if(ack[0] == ACK)
             {
@@ -236,7 +236,7 @@
             uart_flush(UART_NUM_2);
             uart_write_bytes(UART_NUM_2, payload, bytes_read + 2);
             uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
-            uart_flush(UART_NUM_2);
+            //uart_flush(UART_NUM_2);
             uart_read_bytes(UART_NUM_2, ack, 1,3000 / portTICK_PERIOD_MS);
             if(ack[0] == ACK)
             {
