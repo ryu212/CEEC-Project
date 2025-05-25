@@ -69,15 +69,18 @@
     int init_line()
     {
         uint8_t byte_data = 0x7F;
+        uart_flush(UART_NUM_2);
         uart_write_bytes(UART_NUM_2, (const char*)&byte_data, 1);
+        uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
+        uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, pdMS_TO_TICKS(3000));
         if (*ack == 0x79)
         {
-            printf("init line done");
+            printf("init line done\n");
             return 0;
         }
-        printf("init line not work ");
-        printf("%d", *ack);
+        printf("init line not work \n");
+        printf("ack:%d\n", *ack);
         return 1;
     }
 
@@ -87,7 +90,10 @@
         cmd_pl[0] = ERASE^0xFF;
         cmd_combine[0] = cmd[0];
         cmd_combine[1] = cmd_pl[0];
+        uart_flush(UART_NUM_2);
         uart_write_bytes(UART_NUM_2, cmd_combine, 2);
+        uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
+        uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
         if(ack[0] == ACK)
         {
@@ -108,7 +114,10 @@
         cmd_pl[0] = 0xFF^0xFF;
         cmd_combine[0] = cmd[0];
         cmd_combine[1] = cmd_pl[0];
+        uart_flush(UART_NUM_2);
         uart_write_bytes(UART_NUM_2, cmd_combine, 2);
+        uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
+        uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
         if(ack[0] == ACK)
         {
@@ -130,7 +139,10 @@
         cmd_pl[0] = READOUT_UNPROTECT^0xFF;
         cmd_combine[0] = cmd[0];
         cmd_combine[1] = cmd_pl[0];
+        uart_flush(UART_NUM_2);
         uart_write_bytes(UART_NUM_2, cmd_combine, 2);
+        uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
+        uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
         if(ack[0] == ACK)
         {
@@ -146,6 +158,7 @@
             printf("Command not send\n");
             return 1;
         }
+        uart_flush(UART_NUM_2);
         uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
         if(ack[0] == ACK)
         {
@@ -168,7 +181,7 @@
     {
         FILE* f = fopen(path, "rb");
         if (!f) {
-            perror("Không thể mở file");
+            perror("Không thể mở file\n");
             return 1;
         }
         int32_t start = 0x08000000;
@@ -180,7 +193,10 @@
             cmd_pl[0] = WRITE_MEM^0xFF;
             cmd_combine[0] = cmd[0];
             cmd_combine[1] = cmd_pl[0];
+            uart_flush(UART_NUM_2);
             uart_write_bytes(UART_NUM_2, cmd_combine, 2);
+            uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
+            uart_flush(UART_NUM_2);
             uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
             if(ack[0] == ACK)
             {
@@ -197,7 +213,10 @@
                 return 1;
             }
             update_payload_address(start);
+            uart_flush(UART_NUM_2);
             uart_write_bytes(UART_NUM_2, payload, 5);
+            uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
+            uart_flush(UART_NUM_2);
             uart_read_bytes(UART_NUM_2, ack, 1, 3000 / portTICK_PERIOD_MS);
             if(ack[0] == ACK)
             {
@@ -214,7 +233,10 @@
                 return 1;
             }
             update_payload_data(bytes_read);
+            uart_flush(UART_NUM_2);
             uart_write_bytes(UART_NUM_2, payload, bytes_read + 2);
+            uart_wait_tx_done(UART_NUM_2, 3000 / portTICK_PERIOD_MS);
+            uart_flush(UART_NUM_2);
             uart_read_bytes(UART_NUM_2, ack, 1,3000 / portTICK_PERIOD_MS);
             if(ack[0] == ACK)
             {
