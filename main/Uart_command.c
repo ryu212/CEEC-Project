@@ -70,7 +70,7 @@
     {
         uint8_t byte_data = 0x7F;
         uart_write_bytes(UART_NUM_2, (const char*)&byte_data, 1);
-        uart_read_bytes(UART_NUM_2, &ack, 1, pdMS_TO_TICKS(3000));
+        uart_read_bytes(UART_NUM_2, ack, 1, pdMS_TO_TICKS(3000));
         if (*ack == 0x79)
         {
             printf("init line done");
